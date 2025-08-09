@@ -11,5 +11,7 @@ These settings can be changed by modifying the code.
 Run with "sudo bash shutdown_cluster_pssh.sh" on the head node of your cluster.
 
 Change Log:
+
 V 1.2: Simplified code for easier customization.
+
 V 1.1: Added Parallel-ssh utilization
