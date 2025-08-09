@@ -1,5 +1,5 @@
 #!/bin/bash
-#Version 1.2
+#Version 1.2.1
 
 # File to store node list for pssh. "sudo nano .pssh_hosts" to create.
 NODE_FILE=".pssh_hosts"
@@ -17,7 +17,7 @@ COMPUTE_NODES=$(awk '{print $1}' $NODE_FILE)
 SSH_USER="pi"                        # <-- Edit your SSH username
 
 # Shutdown all compute nodes in parallel using pssh
-parallel-ssh -h $NODE_FILE -l "$SSH_USER" -i "sudo shutdown -h now"
+parallel-ssh -i -h $NODE_FILE -l "$SSH_USER" -- sudo shutdown -h now
 
 # Wait until all compute nodes are offline
 echo "Waiting for all compute nodes to shut down..."
