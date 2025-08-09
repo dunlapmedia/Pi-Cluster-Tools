@@ -1,19 +1,23 @@
 #!/bin/bash
+#Version 1.2
 
-# List of compute node hostnames or IPs (space-separated)
-COMPUTE_NODES="rpi1 rpi2"   # <-- Edit with your node hostnames/IPs
+# File to store node list for pssh. "sudo nano .pssh_hosts" to create.
+NODE_FILE=".pssh_hosts"
+
+# Read compute node hostnames or IPs from NODE_FILE
+if [[ ! -f $NODE_FILE ]]; then
+    echo "Node file $NODE_FILE does not exist!"
+    exit 1
+fi
+
+# Enumerate hostnames/IPs into COMPUTE_NODES variable
+COMPUTE_NODES=$(awk '{print $1}' $NODE_FILE)
 
 # SSH username
 SSH_USER="pi"                        # <-- Edit your SSH username
 
-# Optional: file to store node list for pssh
-NODE_FILE=".pssh_hosts"
-
-# Write compute nodes to file for pssh
-echo "${COMPUTE_NODES// /$'\n'}" > $NODE_FILE
-
 # Shutdown all compute nodes in parallel using pssh
-pssh -h $NODE_FILE -l "$SSH_USER" -i "sudo shutdown -h now"
+parallel-ssh -h $NODE_FILE -l "$SSH_USER" -i "sudo shutdown -h now"
 
 # Wait until all compute nodes are offline
 echo "Waiting for all compute nodes to shut down..."
