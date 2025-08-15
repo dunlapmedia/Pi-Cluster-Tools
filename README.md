@@ -1,6 +1,6 @@
 Shutdown Cluster Bash Script
 
-Version 1.2
+Version 1.9.1
 
 Install on the head node of your Raspberry Pi Cluster. (Only tested on a head node running the latest bookworm with pssh installed.)
 
@@ -8,10 +8,12 @@ As published, the program expects your subnodes to have the same username, "pi",
 
 These settings can be changed by modifying the code.
 
-Run with "sudo bash shutdown_cluster_pssh.sh" on the head node of your cluster.
+Run with "sudo bash cluster_sd.sh" on the head node of your cluster.
 
 Change Log:
 
+V 1.9.1: Optimization for Raspberry Pis. Less tries. Name change.
+
 V 1.2: Simplified code for easier customization.
 
-V 1.1: Added Parallel-ssh utilization
+V 1.1: Added Parallel-ssh utilization.
