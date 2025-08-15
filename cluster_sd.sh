@@ -18,7 +18,7 @@ readarray -t COMPUTE_NODES < "$NODE_FILE"
 
 # Shutdown all compute nodes in parallel using pssh
 echo "$(date '+%F %T') Sending shutdown commands to compute nodes..."
-pssh -h "$NODE_FILE" -i -- sudo shutdown -h now
+parallel-ssh -h "$NODE_FILE" -i -- sudo shutdown -h now
 
 # Wait until all compute nodes are offline, max 20 retries
 echo "$(date '+%F %T') Waiting for all compute nodes to shut down..."
